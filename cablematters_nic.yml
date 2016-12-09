@@ -1,0 +1,14 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: yes
+  tasks:
+    - file:
+        state=directory
+        path=/lib/modules/{{ ansible_kernel }}/kernel/drivers/usb/net/
+
+    - copy:
+        src=files/lib/modules/{{ ansible_kernel }}/kernel/drivers/usb/net/ax88179_178a.ko
+        dest=/lib/modules/{{ ansible_kernel }}/kernel/drivers/usb/net/
+
+    - command: depmod -a
